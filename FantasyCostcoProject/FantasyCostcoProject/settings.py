@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'FantasyCostcoProject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': BASE_DIR / 'fantasycostco',
+        'NAME': 'fantasycostco',
     }
 }
 
