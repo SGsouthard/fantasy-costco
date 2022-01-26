@@ -50,16 +50,16 @@ class Trinkets(models.Model):
         return self.name
 
 # Need to set these up as choices
-class Dice(models.model):
-    # 
-    type = models.CharField(max_length=4)
+# class Dice(models.model):
+#     # 
+#     type = models.CharField(max_length=4)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
-class Coins(models.model):
-    # 
-    type = models.CharField(max_length=4)
+# class Coins(models.model):
+#     # 
+#     type = models.CharField(max_length=4)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name

@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CatCollectr</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <header>
+        {% if user.is_authenticated %}
+            <span>
+                <a href="{% url 'profile' user.username %}">Hello {{user.username}}</a>
+            </span>
+            <span>|</span>
+            <span>
+                <a href="{% url 'logout' %}">Logout</a>
+            </span>
+        {% else %}
+            <span>
+                <a href="{% url 'login' %}">Login</a>
+            </span>
+            <span>|</span>
+            <span>
+                <a href="{% url 'signup' %}">SignUp</a>
+            </span>
+        {% endif %}
+        <a href="{% url 'cats_index' %}">
+            <h1>Fantasy Costco</h1>
+            <h3>Where all your dreams come true</h3>
+            <h4>Got a deal for you</h4>
+        </a>
+    </header>
+    {% block content %}
+    {% endblock %}
+
+    <footer>
+        Thanks to the McElroys for inspiring this project!
+    </footer>
+</body>
+</html>
