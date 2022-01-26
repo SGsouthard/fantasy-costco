@@ -39,7 +39,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('/cats')
+    return redirect('/')
 
 def signup_view(request):
     if request.method == 'POST':
@@ -49,7 +49,7 @@ def signup_view(request):
             login(request, user)
             return redirect('/user/'+str(user))
         else:
-            return HttpResponse('<h1>Try Again</h1>')
+            return HttpResponse('<h1>Signup Failed, Please Try Again</h1>')
     else:
         form = UserCreationForm()
         return render(request, 'signup.html', {'form': form})
