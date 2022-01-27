@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
+
 # Create your views here.
 def index(request):
     return HttpResponse("Fantasy Costco! Where all your dreams come true! Got a deal for you!")
@@ -59,3 +60,7 @@ def profile(request, username):
     user = User.objects.get(username=username)
     # Weapons = Weapon.objects.filter(user=user)
     return render(request, 'profile.html', {'username': username,})
+
+@login_required
+def submit(request):
+    return render(request, 'submit.html')
