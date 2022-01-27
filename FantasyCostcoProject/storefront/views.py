@@ -1,5 +1,6 @@
+from django.forms import modelformset_factory
 from django.shortcuts import render, redirect
-from .models import Weapon
+from .models import Weapon, WeaponForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
@@ -9,9 +10,11 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 
+
+
 # Create your views here.
 def index(request):
-    return HttpResponse("Fantasy Costco! Where all your dreams come true! Got a deal for you!")
+    return render(request, 'base.html')
 
 
 
@@ -62,5 +65,12 @@ def profile(request, username):
     return render(request, 'profile.html', {'username': username,})
 
 @login_required
-def submit(request):
-    return render(request, 'submit.html')
+def submit_weapon(request):
+    WeaponForm = modelformset_factory(Weapon, fields=('__all__'))
+    if request.method == 'POST':
+        formset = WeaponForm(request.POST, request.FILES)
+        if formset.is_valid():
+            formset.save()
+    else:
+        formset = WeaponForm()     
+    return render(request, 'submit.html', {'formset':formset})

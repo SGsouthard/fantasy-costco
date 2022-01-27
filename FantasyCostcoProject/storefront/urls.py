@@ -8,5 +8,5 @@ urlpatterns = [
     path('logout', views.logout_view, name='logout'),
     path('signup', views.signup_view, name='signup'),
     path('user/<username>/', views.profile, name='profile'),
-    path('submit', views.submit, name='submit')
+    path('submit-weapon', views.submit_weapon, name='submit-weapon')
 ]
