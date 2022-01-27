@@ -8,6 +8,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.contrib.auth.models import Group
 
 
 
@@ -50,6 +51,8 @@ def signup_view(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
+            group = Group.objects.get(name='Submission-Page-Permissions')
+            user.groups.add(group)
             login(request, user)
             return redirect('/user/'+str(user))
         else:
@@ -64,13 +67,15 @@ def profile(request, username):
     # Weapons = Weapon.objects.filter(user=user)
     return render(request, 'profile.html', {'username': username,})
 
-@login_required
+
 def submit_weapon(request):
     WeaponForm = modelformset_factory(Weapon, fields=('__all__'))
     if request.method == 'POST':
         formset = WeaponForm(request.POST, request.FILES)
         if formset.is_valid():
             formset.save()
+        else:
+            return HttpResponse('<h1>Submission Failed, please log in and try again!</h1>')
     else:
-        formset = WeaponForm()     
+        formset = WeaponForm()
     return render(request, 'submit.html', {'formset':formset})

@@ -14,7 +14,7 @@ DICE_CHOICES = [
 
 # Create your models here.
 class Weapon(models.Model):
-    itemname = models.CharField(max_length=150)
+    name = models.CharField(max_length=150)
     description = models.CharField(max_length=500)
     price = models.IntegerField()
     # format (2 d6 + 3)
@@ -29,7 +29,7 @@ class Weapon(models.Model):
 class WeaponForm(ModelForm):
     class Meta:
         model = Weapon
-        fields = ['itemname', 'description', 'price', 'amountofdice', 'dicetype', 'modifier', 'user']
+        fields = ['name', 'description', 'price', 'amountofdice', 'dicetype', 'modifier', 'user']
 
 class Armor(models.Model):
     name = models.CharField(max_length=150)
