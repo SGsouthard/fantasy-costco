@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse_lazy
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
+
 from django.forms import ModelForm
 
 DICE_CHOICES = [
@@ -21,15 +24,28 @@ class Weapon(models.Model):
     amountofdice = models.IntegerField()
     dicetype = models.CharField(max_length=4, choices=DICE_CHOICES)
     modifier = models.IntegerField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
 
-class WeaponForm(ModelForm):
-    class Meta:
-        model = Weapon
-        fields = ['name', 'description', 'price', 'amountofdice', 'dicetype', 'modifier', 'user']
+# class WeaponForm(ModelForm):
+#     class Meta:
+#         model = Weapon
+#         fields = ['name', 'description', 'price', 'amountofdice', 'dicetype', 'modifier', 'user']
+
+class WeaponCreateView(CreateView):
+    model = Weapon
+    fields = ['name', 'description', 'price', 'amountofdice', 'dicetype', 'modifier']
+
+class WeaponUpdateView(UpdateView):
+    model = Weapon
+    fields = ['name', 'description', 'price', 'amountofdice', 'dicetype', 'modifier']
+
+class WeaponDeleteView(DeleteView):
+    model = Weapon
+    # success_url = reverse_lazy('')
+
 
 class Armor(models.Model):
     name = models.CharField(max_length=150)

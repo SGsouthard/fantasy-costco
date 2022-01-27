@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
-{% comment %} {% csrf_token %} {% endcomment %}
+
     {% block content %}
         <form method="post">
-            {{formset}}
+            {% csrf_token %}
+            {{form}}
             <input type="submit">
         </form>
     {% endblock %}

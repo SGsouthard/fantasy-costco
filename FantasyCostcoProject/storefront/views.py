@@ -68,14 +68,22 @@ def profile(request, username):
     return render(request, 'profile.html', {'username': username,})
 
 
+# def submit_weapon(request):
+#     WeaponForm = modelformset_factory(Weapon, fields=('__all__'))
+#     if request.method == 'POST':
+#         form = WeaponForm(request.POST, request.FILES)
+#         print(form, "testing the form inside the first if statement")
+#         if form.is_valid():
+#             form.save()
+#             print(form, "testing if the second if statement is activating")
+#         else:
+#             print("first else has activated")
+#             return HttpResponse('<h1>Submission Failed, please log in and try again!</h1>')
+
+#     else:
+#         form = WeaponForm()
+#     return render(request, 'submit.html', {'form':form})
+
+
 def submit_weapon(request):
-    WeaponForm = modelformset_factory(Weapon, fields=('__all__'))
-    if request.method == 'POST':
-        formset = WeaponForm(request.POST, request.FILES)
-        if formset.is_valid():
-            formset.save()
-        else:
-            return HttpResponse('<h1>Submission Failed, please log in and try again!</h1>')
-    else:
-        formset = WeaponForm()
-    return render(request, 'submit.html', {'formset':formset})
+    
