@@ -1,6 +1,6 @@
 from django.forms import modelformset_factory
 from django.shortcuts import render, redirect
-from .models import Weapon, WeaponForm
+from .models import Weapon # WeaponForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
@@ -84,6 +84,15 @@ def profile(request, username):
 #         form = WeaponForm()
 #     return render(request, 'submit.html', {'form':form})
 
+class WeaponCreateView(CreateView):
+    model = Weapon
+    fields = ['name', 'description', 'damage', 'price', 'amountofdice', 'dicetype', 'plusorminus', 'modifier']
 
-def submit_weapon(request):
-    
+class WeaponUpdateView(UpdateView):
+    model = Weapon
+    fields = ['name', 'description', 'damage', 'price', 'amountofdice', 'dicetype', 'plusorminus', 'modifier']
+
+class WeaponDeleteView(DeleteView):
+    model = Weapon
+    # success_url = reverse_lazy('')
+

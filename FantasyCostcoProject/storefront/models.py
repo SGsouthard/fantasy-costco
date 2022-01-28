@@ -15,15 +15,47 @@ DICE_CHOICES = [
     ('D100', 'd100'),
 ]
 
+DAMAGE_CHOICES = [
+    ('none', 'None'),
+    ('basic', (
+        ('bludg', 'Bludgeoning'),
+        ('pierce', 'Piercing'),
+        ('slash', 'Slashing'),
+        )
+    ),
+    ('elemental', (
+            ('cold', 'Cold'),
+            ('fire', 'Fire'),
+            ('force', 'Force'),
+            ('light', 'Lightning'),
+            ('thund', 'Thunder'),
+        )
+    ),
+    ('acid', 'Acid'),   
+    ('necro', 'Necrotic'),   
+    ('poison', 'Poison'),
+    ('psych', 'Psychic'),
+    ('radiant', 'Radiant'),
+]
+
+MODIFIER_POS_NEG_CHOICES = [
+    ('PLUS', '+'),
+    ('MINUS', '-')
+]
+
 # Create your models here.
 class Weapon(models.Model):
     name = models.CharField(max_length=150)
     description = models.CharField(max_length=500)
+    damage = models.CharField(max_length=50, choices=DAMAGE_CHOICES)
     price = models.IntegerField()
+    # Dice Data
     # format (2 d6 + 3)
-    amountofdice = models.IntegerField()
-    dicetype = models.CharField(max_length=4, choices=DICE_CHOICES)
-    modifier = models.IntegerField()
+    amountofdice = models.IntegerField(blank= True)
+    dicetype = models.CharField(max_length=4, choices=DICE_CHOICES, blank= True)
+    plusorminus = models.CharField(max_length=10, choices=MODIFIER_POS_NEG_CHOICES, blank=True)
+    modifier = models.IntegerField(blank= True)
+    # added automatically when a user creates something
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -34,17 +66,7 @@ class Weapon(models.Model):
 #         model = Weapon
 #         fields = ['name', 'description', 'price', 'amountofdice', 'dicetype', 'modifier', 'user']
 
-class WeaponCreateView(CreateView):
-    model = Weapon
-    fields = ['name', 'description', 'price', 'amountofdice', 'dicetype', 'modifier']
 
-class WeaponUpdateView(UpdateView):
-    model = Weapon
-    fields = ['name', 'description', 'price', 'amountofdice', 'dicetype', 'modifier']
-
-class WeaponDeleteView(DeleteView):
-    model = Weapon
-    # success_url = reverse_lazy('')
 
 
 class Armor(models.Model):
